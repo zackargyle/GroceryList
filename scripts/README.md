@@ -1,4 +1,0 @@
-zackargyle.com
-==============
-
-Resume website
