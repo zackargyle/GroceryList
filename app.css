@@ -6,6 +6,11 @@
     font-family: "Lucida Grande";
 }
 
+body {
+    min-width: 1000px;
+    background-color: hsl(0, 0%, 100%);
+}
+
 input::-webkit-inner-spin-button {
     -webkit-appearance: none;
     margin: 0;
@@ -50,6 +55,7 @@ input::-webkit-inner-spin-button {
 }
 
 #add-qnty {
+    text-align: center;
     -webkit-appearance: none;
     border: 2px solid hsl(210, 30%, 60%);
     width: 10%;
@@ -60,8 +66,8 @@ input::-webkit-inner-spin-button {
 #grocery-list {
     margin-top: 1%;
     padding: 2% 2%;
-    width: 95.2%;
-    margin-left: .4%;
+    width: 95.6%;
+    margin-left: .2%;
     background-color: hsl(60,35%,85%);
     text-align: left;
 }
@@ -70,6 +76,11 @@ input::-webkit-inner-spin-button {
     padding: 2%;
     border-bottom: 1px solid hsl(60,35%,85%);
     background-color: white;
+    -webkit-animation: fadein .5s; /* Safari and Chrome */
+       -moz-animation: fadein .5s; /* Firefox */
+        -ms-animation: fadein .5s; /* Internet Explorer */
+         -o-animation: fadein .5s; /* Opera */
+            animation: fadein .5s;
 }
 
 .grocery-item div {
@@ -90,18 +101,21 @@ input::-webkit-inner-spin-button {
 }
 
 .grocery-note {
-    height: 10px;
+    height: 12px;
     background-image: url('img/note.png'); 
-}
-
-.grocery-edit {
-    height: 15px;
-    background-image: url('img/edit.png');
 }
 
 .grocery-remove {
     height: 15px;
     background-image: url('img/remove.png'); 
+    float: right;
+}
+
+.grocery-edit {
+    height: 15px;
+    background-image: url('img/edit.png');
+    float:right;
+    margin-right: 10px;
 }
 
 .grocery-edit, .grocery-remove, .grocery-note {
@@ -143,3 +157,27 @@ input::-webkit-inner-spin-button {
     cursor: pointer;
     background-color: hsl(210, 30%, 70%);
 }
+
+/* FADE IN */
+@keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+/* Firefox */
+@-moz-keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+/* Safari and Chrome */
+@-webkit-keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+/* Internet Explorer */
+@-ms-keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â¹

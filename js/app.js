@@ -1,12 +1,15 @@
 
 var groceries = angular.module('GroceryList', ['directives']);
 
-groceries.controller('groceryCtrl', function($scope, $http) {
-  var GroceryList = new Firebase('https://zackargyle.firebaseIO.com/GroceryList');
+groceries.controller('groceryCtrl', function($scope) {
+  $scope.test = "Hello";
+  var base_url = 'https://zackargyle.firebaseIO.com/GroceryList';
+  var GroceryList = new Firebase(base_url);
   var itemElem = document.getElementById('add-item');
 
 	$scope.groceries = [];
 
+  // Listener for new grocery items
   GroceryList.on('child_added', function(snap) {
     var item = snap.val();
     item.id = snap.name();
@@ -19,9 +22,16 @@ groceries.controller('groceryCtrl', function($scope, $http) {
   });
 
   $scope.addItem = function() {
+    // Cannot add empty item
     if ($scope.newItem.title !== '') {
-      if ($scope.newItem.hasOwnProperty('id')) {
-        console.log('good');
+      // Update or Add?
+      if ($scope.newItem.hasOwnProperty('$$hashKey')) {
+        // Remove hashkey from item
+        var item = angular.copy($scope.newItem);
+        delete item.$$hashKey;
+        // Update corresponding item by id
+        var GroceryItem = new Firebase(base_url + '/' + item.id);
+        GroceryItem.update(item);
       } else {
         GroceryList.push($scope.newItem);
       }
@@ -42,8 +52,14 @@ groceries.controller('groceryCtrl', function($scope, $http) {
     }
   };
 
-  $scope.remove = function(item) {
-
+  $scope.remove = function(item, index) {
+    var GroceryItem = new Firebase(base_url + '/' + item.id);
+    GroceryItem.remove(function(error) {
+      if (!error) {
+        $scope.groceries.splice(index,1);
+        $scope.$apply();
+      }
+    });
   };
 
   $scope.noteVisibility = function(note) {
@@ -71,7 +87,9 @@ groceries.controller('groceryCtrl', function($scope, $http) {
 window.onresize = (function() {
   var elem = document.getElementById('grocery-container');
   return function() {
-    elem.style.marginLeft = (window.innerWidth - elem.offsetWidth) / 2 + 'px';
+    var left = (window.innerWidth - elem.offsetWidth) / 2;
+    left = left > 0 ? left : 0;
+    elem.style.marginLeft = left + 'px';
   }
 }());
 window.onresize();

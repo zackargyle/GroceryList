@@ -16,20 +16,20 @@
         <div>
           <form id="grocery-add">
             <input type="text" id="add-item" ng-model="newItem.title" placeholder="Describe the item (required)">
-            <input type="number" id="add-qnty" ng-model="newItem.quantity" placeholder="Qnty">
+            <input type="text" id="add-qnty" ng-model="newItem.quantity" placeholder="Qty">
             <input type="text" id="add-note" ng-model="newItem.note" placeholder="Add a note (optional)">
             <div class="btn" ng-click="addItem()">Save</div>
           </form>
           <div id="grocery-list">
             <div class="grocery-item" ng-repeat="item in groceries">
-              <div>Qnty: {{item.quantity}} </div>
+              <div>Qty: {{item.quantity}} </div>
               <div>
-                <div class="grocery-note" ng-popover ng-style="noteVisibility(item.note)"></div>
+                <div class="grocery-note" ng-popover="item.note" ng-style="noteVisibility(item.note)"></div>
                 Item: {{item.title}}
               </div>
               <div id="grocery-more">
+                <div class="grocery-remove" ng-click="remove(item, $index)"></div>
                 <div class="grocery-edit" ng-click="edit(item)"></div>
-                <div class="grocery-remove" ng-click="remove(item)"></div>
               </div>
             </div>
           </div>
